@@ -30,15 +30,30 @@
         required : false
       }
     },
+    data: {
+      gal: null
+    },
+    watch: {
+      images: function(newValue, oldValue) {
+       this.$nextTick(function() {
+          if(this.options != undefined){
+            this.gal = $('.my-gallery a').simpleLightbox(this.options)
+          }
+          else{
+           this.gal = $('.my-gallery a').simpleLightbox()
+          }
+        });
+      }
+    },
     mounted(){
       try {
           window.$ = window.jQuery = require('jquery');
           var simplelightbox = require('simplelightbox');
           if(this.options != undefined){
-            var gal = $('.my-gallery a').simpleLightbox(this.options)
+            this.gal = $('.my-gallery a').simpleLightbox(this.options)
           }
           else{
-           var gal = $('.my-gallery a').simpleLightbox()
+           this.gal = $('.my-gallery a').simpleLightbox()
           }
 
       } catch (e) {}
